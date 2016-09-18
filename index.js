@@ -305,7 +305,7 @@ class Discord {
       // Block type, block name, function name
       [' ', 'create client %m', '_init', 'options.fetch_all_members'],
       [' ', 'login %s', 'login', 'token'],
-      ['w', 'send message %n, %n', 'send_message', 'Channel ID', 'Message'],
+      ['w', 'send message %s, %s', 'send_message', 'Channel ID', 'Message'],
       ['h', 'on message', 'on_message']
     ]
   };
