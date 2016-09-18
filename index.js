@@ -307,7 +307,7 @@ class Discord {
   var descriptor = {
     blocks: [
       // Block type, block name, function name
-      [' ', 'create client %m', '_init', 'options.fetch_all_members'],
+      [' ', 'create client %m', 'init', 'options.fetch_all_members'],
       [' ', 'login %s', 'login', 'token'],
       ['w', 'send message %s, %s', 'send_message', 'Channel ID', 'Message'],
       ['h', 'on message', 'on_message']
