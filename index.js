@@ -282,15 +282,18 @@ class Discord {
 }
 
 (function (ext) {
-  ext.init = function () {
-    ext.client = new Discord();
+  ext.init = function (options) {
+    console.info('attempting to make new client');
+    ext.client = new Discord(options);
   }
 
   ext.login = function (token) {
+    console.info('attempting to log in');
     ext.client.login(token);
   }
 
   ext.send_message = function (id, message, callback) {
+    console.info('attempting to send message');
     ext.client.sendMessage(id, message, function (res) {
       callback(res);
     })
