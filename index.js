@@ -282,8 +282,12 @@ class Discord {
 }
 
 (function (ext) {
-  ext._init = function () {
+  ext.init = function () {
     ext.client = new Discord();
+  }
+
+  ext.set_token = function (token) {
+    ext.token = token;
   }
 
   ext.send_message = function (id, message, callback) {
@@ -299,7 +303,8 @@ class Discord {
   var descriptor = {
     blocks: [
       // Block type, block name, function name
-      [' ', 'create client %m', '_init', 'options'],
+      [' ', 'create client %m', '_init', 'options.fetch_all_members'],
+      [' ', 'set token %s', 'set_token'],
       ['w', 'send message %n, %n', 'send_message', 'Channel ID', 'Message'],
       ['h', 'on message', 'on_message']
     ]
