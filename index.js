@@ -290,9 +290,7 @@ class Discord {
 
   ext.login = function (token) {
     console.info('attempting to log in');
-    ext.client.login(token).catch(function (err) {
-      throw new Error(err);
-    });
+    ext.client.login(token);
   }
 
   ext.send_message = function (id, message, callback) {
