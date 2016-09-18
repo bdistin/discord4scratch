@@ -296,6 +296,7 @@ class Discord {
   ext.send_message = function (id, message, callback) {
     console.info('attempting to send message');
     ext.client.sendMessage(id, message, function (res) {
+      console.log(res);
       callback(res);
     })
   }
