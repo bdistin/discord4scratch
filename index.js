@@ -292,11 +292,16 @@ class Discord {
     })
   }
 
+  ext.on_message = function () {
+    return false;
+  }
+
   var descriptor = {
     blocks: [
       // Block type, block name, function name
       [' ', 'Init', '_init'],
       ['w', 'Send Message %n, %n', 'send_message', 'Channel ID', 'Message'],
+      ['h', 'on message', 'on_message']
     ]
   };
   ScratchExtensions.register('Discord for Scratch', descriptor, ext);
