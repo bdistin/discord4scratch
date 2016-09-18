@@ -85,7 +85,8 @@ class Discord {
   /**
    * logs in
    */
-  login () {
+  login (token) {
+    if (token) this.options.token = token;
     var self = this;
     this.callAPI({
       method: 'GET',
