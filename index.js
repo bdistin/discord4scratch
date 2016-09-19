@@ -310,7 +310,6 @@ class Discord {
   }
 
   ext.on_message = function () {
-    console.log('running on message i think');
     if (ext.messageAvailable === true) {
       // if (ext.messageQueue.length === 0) ext.messageAvailable = false;
       return true;
@@ -322,7 +321,7 @@ class Discord {
     var message = ext.messageQueue[0];
     delete ext.messageQueue[0];
     if (ext.messageQueue.length === 0) ext.messageAvailable = false;
-    callback(message.content);
+    callback(message);
   }
 
   ext.console_log = function (i) {
