@@ -124,5 +124,5 @@
       ['R', 'eval %s', 'eval', 'input']
     ]
   };
-  ScratchExtensions.register('Discord4Scratch', descriptor, ext);
+  ScratchExtensions.register('Discord for Scratch', descriptor, ext);
 })({});
