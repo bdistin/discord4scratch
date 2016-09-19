@@ -72,6 +72,13 @@
     return message.content.startsWith(search);
   }
 
+  ext._getStatus = function() {
+    var statusMap = {0: 1, 1: 2, 2: 0, 3: 0};
+    var messageMap = {0: 'Connecting', 1: 'Connected', 2: 'Disconnecting', 3: 'Disconnected'}
+    if (!ext.client) return {status: 0, msg: 'Disconnected'};
+    return {status: statusMap[ext.client._ws.readyState], msg: messageMap[ext.client._ws.readyState]};
+}
+
   var descriptor = {
     blocks: [
       // Block type, block name, function name
