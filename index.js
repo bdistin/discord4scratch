@@ -353,7 +353,7 @@ class Discord {
       ['h', 'on message', 'on_message'],
       ['r', 'get message', 'get_message'],
       ['r', 'get message content %s', 'get_message_content', 'message object'],
-      ['r', 'message starts with %s $s', 'message_starts_with', 'message', 'search'],
+      ['r', 'message starts with %s %s', 'message_starts_with', 'message', 'search'],
       ['r', 'string starts with %s %s', 'startsWith', 'string', 'search'],
       ['r', 'get property %s %s', 'get_property', 'object', 'property'],
       ['r', 'messages available', 'message_available'],
