@@ -283,14 +283,14 @@ class Discord {
 }
 
 (function (ext) {
-  ext.messageQueue = [];
+  ext.lastMessage = null;
   ext.messageAvailable = false;
 
   ext.init = function (token) {
     ext.client = new Discord({token: token, debug: true});
     ext.client.e.on('MESSAGE_CREATE', function (e) {
       if (e.d.author.id === ext.client.user.id) return;
-      ext.messageQueue.push(e.d);
+      ext.lastMessage = e.d;
       ext.messageAvailable = true;
     });
   }
@@ -307,15 +307,14 @@ class Discord {
 
   ext.on_message = function () {
     if (ext.messageAvailable === true) {
-      if (ext.messageQueue.length === 0) ext.messageAvailable = false;
+      ext.messageAvailable = false;
       return true;
     }
     return false;
   }
 
   ext.get_message = function (callback) {
-    var message = ext.messageQueue.shift()
-    if (ext.messageQueue.length === 0) ext.messageAvailable = false;
+    var message = ext.lastMessage;
     if (callback) callback(message);
     return message;
   }
