@@ -66,6 +66,7 @@ class Discord {
    * @param {Object} options.body Optional body for the request
    */
   callAPI (options, callback) {
+    console.log('CALLING API WITH TOKEN', this.options.token);
     var base = 'https://discordapp.com/api';
     var headers = new Headers({
       'Authorization': this.options.token,
