@@ -69,6 +69,10 @@
     callback(res);
   }
 
+  ext.message_starts_with = function(message, search) {
+    return message.content.startsWith(search);
+  }
+
   ext._getStatus = function() {
     var statusMap = {0: 1, 1: 2, 2: 0, 3: 0};
     var messageMap = {0: 'Connecting', 1: 'Connected', 2: 'Disconnecting', 3: 'Disconnected'}
@@ -79,7 +83,7 @@
   var descriptor = {
     blocks: [
       // Block type, block name, function name
-      [' ', 'run %s in frame', 'frame', 'function'],
+      [' ', 'run %s', 'frame', 'function'],
       [' ', 'create client %s', 'init', 'token'],
       [' ', 'login', 'login'],
       ['R', 'send message %s, %s', 'send_message', 'Channel ID', 'Message'],
@@ -87,6 +91,7 @@
       ['h', 'on message', 'on_message'],
       ['r', 'get message', 'get_message'],
       ['b', 'messages available', 'message_available'],
+      ['b', '%s starts with %s', 'message_starts_with', 'message', 'search'],
       [' ', 'console %s %s', 'console', 'method', 'input'],
       ['R', 'eval %s', 'eval', 'input']
     ]
