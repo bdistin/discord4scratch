@@ -291,7 +291,7 @@ class Discord {
     ext.client = new Discord({token: token});
     ext.client.e.on('message', function (e) {
       console.log('GOT MESSAGE EVENT', e.d);
-      if (e.d.author.id === ext.client.user.id) return;
+      // if (e.d.author.id === ext.client.user.id) return;
       ext.messageQueue.push(e.d);
       ext.messageAvailable = true;
     })
