@@ -72,12 +72,16 @@
     return message.content.startsWith(search);
   }
 
+  ext.replace = function (string, search, replace) {
+    return string.replace(search, replace);
+  }
+
   ext._getStatus = function() {
     var statusMap = {0: 1, 1: 2, 2: 0, 3: 0};
     var messageMap = {0: 'Connecting', 1: 'Connected', 2: 'Disconnecting', 3: 'Disconnected'}
     if (!ext.client) return {status: 0, msg: 'Disconnected'};
     return {status: statusMap[ext.client._ws.readyState], msg: messageMap[ext.client._ws.readyState]};
-}
+  }
 
   var descriptor = {
     blocks: [
@@ -93,6 +97,7 @@
       ['b', 'string starts with %s %s', 'startsWith', 'string', 'search'],
       ['r', 'get property %s %s', 'get_property', 'object', 'property'],
       ['b', 'messages available', 'message_available'],
+      ['r', 'replace %s with %s in %s', 'replace', 'x', 'y', 'string'];
       [' ', 'console log %s', 'console_log', 'input']
     ]
   };
