@@ -284,9 +284,16 @@ class Discord {
 }
 
 (function (ext) {
+  ext.messageQueue = [];
+  ext.messageAvailable = false;
+
   ext.init = function (token) {
     console.info('attempting to make new client');
     ext.client = new Discord({token: token});
+    ext.client.e.on('message', function (e) {
+      ext.messageQueue.push(e.d);
+      ext.messageAvailable = true;
+    })
   }
 
   ext.login = function () {
@@ -303,7 +310,18 @@ class Discord {
   }
 
   ext.on_message = function () {
+    if (ext.messageAvailable === true) {
+      if (ext.messageQueue.length === 0) ext.messageAvailable = false;
+      return true;
+    }
     return false;
+  }
+
+  ext.get_message = function (callback) {
+    var message = ext.messageQueue[0];
+    delete ext.messageQueue[0];
+    if (ext.messageQueue.length === 0) ext.messageAvailable = false;
+    callback(message);
   }
 
   var descriptor = {
@@ -312,7 +330,8 @@ class Discord {
       [' ', 'create client %s', 'init', 'token'],
       [' ', 'login', 'login'],
       ['w', 'send message %s, %s', 'send_message', 'Channel ID', 'Message'],
-      ['h', 'on message', 'on_message']
+      ['h', 'on message', 'on_message'],
+      ['r', 'get message', 'get_message']
     ]
   };
   ScratchExtensions.register('Discord for Scratch', descriptor, ext);
