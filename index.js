@@ -308,15 +308,14 @@ class Discord {
 
   ext.on_message = function () {
     if (ext.messageAvailable === true) {
-      // if (ext.messageQueue.length === 0) ext.messageAvailable = false;
+      if (ext.messageQueue.length === 0) ext.messageAvailable = false;
       return true;
     }
     return false;
   }
 
   ext.get_message = function (callback) {
-    var message = ext.messageQueue[0];
-    // delete ext.messageQueue[0];
+    var message = ext.messageQueue.shift()
     if (ext.messageQueue.length === 0) ext.messageAvailable = false;
     if (callback) callback(message);
     return message;
