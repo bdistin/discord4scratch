@@ -66,7 +66,6 @@ class Discord {
    * @param {Object} options.body Optional body for the request
    */
   callAPI (options, callback) {
-    console.log('CALLING API WITH TOKEN', this.options.token);
     var base = 'https://discordapp.com/api';
     var headers = new Headers({
       'Authorization': this.options.token,
@@ -291,6 +290,7 @@ class Discord {
     console.info('attempting to make new client');
     ext.client = new Discord({token: token});
     ext.client.e.on('message', function (e) {
+      if (e.d.author.id === ext.client.user.id) return;
       ext.messageQueue.push(e.d);
       ext.messageAvailable = true;
     })
@@ -304,12 +304,12 @@ class Discord {
   ext.send_message = function (id, message, callback) {
     console.info('attempting to send message');
     ext.client.sendMessage(id, message, function (res) {
-      console.log(res);
       callback(res);
     })
   }
 
   ext.on_message = function () {
+    console.log('running on message i think');
     if (ext.messageAvailable === true) {
       // if (ext.messageQueue.length === 0) ext.messageAvailable = false;
       return true;
@@ -317,11 +317,11 @@ class Discord {
     return false;
   }
 
-  ext.get_message = function (callback) {
+  ext.get_content = function (callback) {
     var message = ext.messageQueue[0];
     delete ext.messageQueue[0];
     if (ext.messageQueue.length === 0) ext.messageAvailable = false;
-    callback(message);
+    callback(message.content);
   }
 
   ext.console_log = function (i) {
