@@ -287,7 +287,6 @@ class Discord {
   ext.messageAvailable = false;
 
   ext.init = function (token) {
-    console.info('attempting to make new client');
     ext.client = new Discord({token: token});
     ext.client.e.on('message', function (e) {
       console.log('GOT MESSAGE EVENT', e.d);
@@ -298,12 +297,10 @@ class Discord {
   }
 
   ext.login = function () {
-    console.info('attempting to log in');
     ext.client.login();
   }
 
   ext.send_message = function (id, message, callback) {
-    console.info('attempting to send message');
     ext.client.sendMessage(id, message, function (res) {
       callback(res);
     })
