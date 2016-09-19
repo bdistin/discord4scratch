@@ -290,7 +290,6 @@ class Discord {
     ext.client = new Discord({token: token, debug: true});
     ext.client.e.on('MESSAGE_CREATE', function (e) {
       if (e.d.author.id === ext.client.user.id) return;
-      console.log('MESSAGE OMG', e.d);
       ext.messageQueue.push(e.d);
       ext.messageAvailable = true;
     });
@@ -329,6 +328,15 @@ class Discord {
     console.log(i);
   }
 
+  ext.startsWith = function (string, search) {
+    if (String.prototype.hasOwnProperty('startsWith')) return string.startsWith(search);
+    else return string.indexOf(search) === 0;
+  }
+
+  ext.get_property = function (object, property) {
+    return object[property] ? object[property] : undefined;
+  }
+
   var descriptor = {
     blocks: [
       // Block type, block name, function name
@@ -338,6 +346,8 @@ class Discord {
       ['h', 'on message', 'on_message'],
       ['r', 'get message', 'get_message'],
       ['r', 'messages available', 'message_available'],
+      ['r', 'string starts with %s %s', 'startsWith', 'string', 'search'],
+      ['r', 'get property %s %s', 'get_property', 'object', 'property'],
       [' ', 'console log %s', 'console_log', 'input']
     ]
   };
