@@ -46,6 +46,10 @@
     return false;
   }
 
+  ext.get_message = function () {
+    return ext.lastMessage;
+  }
+
   ext.message_available = function () {
     return ext.messageAvailable;
   }
