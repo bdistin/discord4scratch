@@ -318,7 +318,7 @@ class Discord {
     var message = ext.messageQueue[0];
     delete ext.messageQueue[0];
     if (ext.messageQueue.length === 0) ext.messageAvailable = false;
-    callback(message);
+    return callback(message);
   }
 
   ext.message_available = function () {
@@ -336,7 +336,7 @@ class Discord {
       [' ', 'login', 'login'],
       ['w', 'send message %s, %s', 'send_message', 'Channel ID', 'Message'],
       // ['h', 'on message', 'on_message'],
-      ['R', 'get message', 'get_message'],
+      ['r', 'get message', 'get_message'],
       ['r', 'messages available', 'message_available'],
       [' ', 'console log %s', 'console_log', 'input']
     ]
