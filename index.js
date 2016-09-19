@@ -311,7 +311,7 @@ class Discord {
 
   ext.on_message = function () {
     if (ext.messageAvailable === true) {
-      if (ext.messageQueue.length === 0) ext.messageAvailable = false;
+      // if (ext.messageQueue.length === 0) ext.messageAvailable = false;
       return true;
     }
     return false;
