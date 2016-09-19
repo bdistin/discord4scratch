@@ -99,7 +99,7 @@
       // Block type, block name, function name
       [' ', 'create client %s', 'init', 'token'],
       [' ', 'login', 'login'],
-      ['r', 'send message %s, %s', 'send_message', 'Channel ID', 'Message'],
+      ['R', 'send message %s, %s', 'send_message', 'Channel ID', 'Message'],
       ['h', 'on message', 'on_message'],
       ['w', 'reply to %s with %s', 'reply_to_message', 'message', 'Content'],
       ['r', 'get message', 'get_message'],
