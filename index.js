@@ -83,7 +83,7 @@
       ['h', 'on message', 'on_message'],
       ['r', 'get message', 'get_message'],
       ['b', 'messages available', 'message_available'],
-      [' ', 'console %s %s', 'console_log', 'method', 'input'],
+      [' ', 'console %s %s', 'console', 'method', 'input'],
       ['R', 'eval %s', 'eval', 'input']
     ]
   };
