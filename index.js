@@ -72,7 +72,7 @@
     return message.content.startsWith(search);
   }
 
-  ext.replace = function (string, search, replace) {
+  ext.replace = function (search, replace, string) {
     return string.replace(search, replace);
   }
 
