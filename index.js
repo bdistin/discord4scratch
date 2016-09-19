@@ -79,6 +79,10 @@
     return message.content.startsWith(search);
   }
 
+  ext.property_of_object = function(property, object) {
+    return object[property] || null;
+  }
+
   ext._getStatus = function() {
     var statusMap = {0: 1, 1: 2, 2: 0, 3: 0};
     var messageMap = {0: 'Connecting', 1: 'Connected', 2: 'Disconnecting', 3: 'Disconnected'}
@@ -99,6 +103,7 @@
       ['r', 'get message', 'get_message'],
       ['b', 'messages available', 'message_available'],
       ['b', '%s starts with %s', 'message_starts_with', 'message', 'search'],
+      ['r', 'get %s of %s', 'property_of_object', 'property', 'object'],
       [' ', 'console %s %s', 'console', 'method', 'input'],
       ['R', 'eval %s', 'eval', 'input']
     ]
