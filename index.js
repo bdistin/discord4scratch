@@ -317,7 +317,7 @@ class Discord {
     var message = ext.messageQueue[0];
     delete ext.messageQueue[0];
     if (ext.messageQueue.length === 0) ext.messageAvailable = false;
-    callback(message);
+    if (callback) callback(message);
     return message;
   }
 
