@@ -76,6 +76,10 @@
     return string.replace(search, replace);
   }
 
+  ext.eval = function(input, callback) {
+    return callback(eval(string));
+  }
+
   ext._getStatus = function() {
     var statusMap = {0: 1, 1: 2, 2: 0, 3: 0};
     var messageMap = {0: 'Connecting', 1: 'Connected', 2: 'Disconnecting', 3: 'Disconnected'}
@@ -98,7 +102,8 @@
       ['r', 'get property %s %s', 'get_property', 'object', 'property'],
       ['b', 'messages available', 'message_available'],
       ['r', 'replace %s with %s in %s', 'replace', 'x', 'y', 'string'];
-      [' ', 'console log %s', 'console_log', 'input']
+      [' ', 'console log %s', 'console_log', 'input'],
+      ['R', 'eval %s', 'eval', 'input']
     ]
   };
   ScratchExtensions.register('Discord for Scratch', descriptor, ext);
