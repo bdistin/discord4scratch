@@ -288,9 +288,8 @@ class Discord {
 
   ext.init = function (token) {
     ext.client = new Discord({token: token, debug: true});
-    ext.client.e.on('message', function (e) {
-      console.log('GOT MESSAGE EVENT', e.d);
-      // if (e.d.author.id === ext.client.user.id) return;
+    ext.client.e.on('MESSAGE_CREATE', function (e) {
+      if (e.d.author.id === ext.client.user.id) return;
       ext.messageQueue.push(e.d);
       ext.messageAvailable = true;
     });
@@ -306,13 +305,13 @@ class Discord {
     })
   }
 
-  // ext.on_message = function () {
-  //   if (ext.messageAvailable === true) {
-  //     // if (ext.messageQueue.length === 0) ext.messageAvailable = false;
-  //     return true;
-  //   }
-  //   return false;
-  // }
+  ext.on_message = function () {
+    if (ext.messageAvailable === true) {
+      // if (ext.messageQueue.length === 0) ext.messageAvailable = false;
+      return true;
+    }
+    return false;
+  }
 
   ext.get_message = function (callback) {
     var message = ext.messageQueue[0];
@@ -335,7 +334,7 @@ class Discord {
       [' ', 'create client %s', 'init', 'token'],
       [' ', 'login', 'login'],
       ['w', 'send message %s, %s', 'send_message', 'Channel ID', 'Message'],
-      // ['h', 'on message', 'on_message'],
+      ['h', 'on message', 'on_message'],
       ['r', 'get message', 'get_message'],
       ['r', 'messages available', 'message_available'],
       [' ', 'console log %s', 'console_log', 'input']
