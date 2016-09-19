@@ -284,14 +284,14 @@ class Discord {
 }
 
 (function (ext) {
-  ext.init = function (options) {
+  ext.init = function (token) {
     console.info('attempting to make new client');
-    ext.client = new Discord(options);
+    ext.client = new Discord({token: token});
   }
 
-  ext.login = function (token) {
+  ext.login = function () {
     console.info('attempting to log in');
-    ext.client.login(token);
+    ext.client.login();
   }
 
   ext.send_message = function (id, message, callback) {
@@ -309,8 +309,8 @@ class Discord {
   var descriptor = {
     blocks: [
       // Block type, block name, function name
-      [' ', 'create client %m', 'init', 'options.fetch_all_members'],
-      [' ', 'login %s', 'login', 'token'],
+      [' ', 'create client %s', 'init', 'token'],
+      [' ', 'login', 'login'],
       ['w', 'send message %s, %s', 'send_message', 'Channel ID', 'Message'],
       ['h', 'on message', 'on_message']
     ]
