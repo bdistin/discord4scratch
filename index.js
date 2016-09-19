@@ -138,7 +138,7 @@ class Discord {
       case 0:
         switch (e.t) {
           case 'READY':
-            this.user = e.d.user;
+            self.user = e.d.user;
             if (e.d.guilds) {
               e.d.guilds.forEach(function (guild) {
                 self.guilds.set(guild.id, guild);
@@ -289,7 +289,7 @@ class Discord {
   ext.init = function (token) {
     ext.client = new Discord({token: token, debug: true});
     ext.client.e.on('MESSAGE_CREATE', function (e) {
-      if (e.d.author.id === ext.client.user.id) return;
+      // if (e.d.author.id === ext.client.user.id) return;
       ext.messageQueue.push(e.d);
       ext.messageAvailable = true;
     });
