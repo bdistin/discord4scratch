@@ -324,6 +324,10 @@ class Discord {
     callback(message);
   }
 
+  ext.console_log = function (i) {
+    console.log(i);
+  }
+
   var descriptor = {
     blocks: [
       // Block type, block name, function name
@@ -331,7 +335,8 @@ class Discord {
       [' ', 'login', 'login'],
       ['w', 'send message %s, %s', 'send_message', 'Channel ID', 'Message'],
       ['h', 'on message', 'on_message'],
-      ['r', 'get message', 'get_message']
+      ['r', 'get message', 'get_message'],
+      [' ', 'console log %s', 'console_log', 'input']
     ]
   };
   ScratchExtensions.register('Discord for Scratch', descriptor, ext);
