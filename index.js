@@ -34,6 +34,16 @@
     });
   }
 
+  ext.edit_message = function (channelid, messageid, content, callback) {
+    ext.client.editMessage({
+      channel: channelid,
+      messageID: messageid,
+      message: content
+    }, function(err, res) {
+      if (callback) callback(res);
+    });
+  }
+
   ext.on_message = function () {
     if (ext.messageAvailable === true) {
       ext.messageAvailable = false;
@@ -100,6 +110,7 @@
       [' ', 'create client %s', 'init', 'token'],
       [' ', 'login', 'login'],
       ['R', 'send message %s, %s', 'send_message', 'Channel ID', 'Message'],
+      ['w', 'edit %s %s %s', 'edit_message', 'Channel ID', 'Message ID', 'Content'],
       ['h', 'on message', 'on_message'],
       ['w', 'reply to %s with %s', 'reply_to_message', 'message', 'Content'],
       ['r', 'get message', 'get_message'],
