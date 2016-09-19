@@ -80,7 +80,7 @@
     var res;
     try {
       res = eval(input);
-    catch (err) {
+    } catch (err) {
       res = err.message;
     }
     if (res instanceof Promise) res = res.then;
