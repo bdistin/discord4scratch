@@ -101,7 +101,7 @@
       ['b', 'string starts with %s %s', 'startsWith', 'string', 'search'],
       ['r', 'get property %s %s', 'get_property', 'object', 'property'],
       ['b', 'messages available', 'message_available'],
-      ['r', 'replace %s with %s in %s', 'replace', 'x', 'y', 'string'];
+      ['r', 'replace %s with %s in %s', 'replace', 'x', 'y', 'string'],
       [' ', 'console log %s', 'console_log', 'input'],
       ['R', 'eval %s', 'eval', 'input']
     ]
