@@ -329,12 +329,19 @@ class Discord {
   }
 
   ext.startsWith = function (string, search) {
-    if (String.prototype.hasOwnProperty('startsWith')) return string.startsWith(search);
-    else return string.indexOf(search) === 0;
+    return string.startsWith(search);
   }
 
   ext.get_property = function (object, property) {
     return object[property] ? object[property] : undefined;
+  }
+
+  ext.get_message_content = function (message) {
+    return message.content;
+  }
+
+  ext.message_starts_with = function (message, search) {
+    return message.content.startsWith(search);
   }
 
   var descriptor = {
@@ -345,9 +352,11 @@ class Discord {
       ['w', 'send message %s, %s', 'send_message', 'Channel ID', 'Message'],
       ['h', 'on message', 'on_message'],
       ['r', 'get message', 'get_message'],
-      ['r', 'messages available', 'message_available'],
+      ['r', 'get message content %s', 'get_message_content', 'message object'],
+      ['r', 'message starts with %s $s', 'message_starts_with', 'message', 'search']
       ['r', 'string starts with %s %s', 'startsWith', 'string', 'search'],
       ['r', 'get property %s %s', 'get_property', 'object', 'property'],
+      ['r', 'messages available', 'message_available'],
       [' ', 'console log %s', 'console_log', 'input']
     ]
   };
