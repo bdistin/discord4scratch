@@ -77,7 +77,14 @@
   }
 
   ext.eval = function(input, callback) {
-    return callback(eval(string));
+    var res;
+    try {
+      res = eval(input);
+    catch (err) {
+      res = err.message;
+    }
+    if (res instanceof Promise) res = res.then;
+    callback(res);
   }
 
   ext._getStatus = function() {
