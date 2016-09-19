@@ -87,6 +87,7 @@
       [' ', 'create client %s', 'init', 'token'],
       [' ', 'login', 'login'],
       ['R', 'send message %s, %s', 'send_message', 'Channel ID', 'Message'],
+      ['R', 'reply to %s with %s', 'reply_to_message', 'message', 'content'],
       ['R', 'edit %s %s %s', 'edit_message', 'Channel ID', 'Message ID', 'Content'],
       ['h', 'on message', 'on_message'],
       ['r', 'get message', 'get_message'],
