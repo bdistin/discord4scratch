@@ -82,7 +82,6 @@
       ['R', 'edit %s %s %s', 'edit_message', 'Channel ID', 'Message ID', 'Content'],
       ['h', 'on message', 'on_message'],
       ['r', 'get message', 'get_message'],
-      ['r', 'get property %s %s', 'get_property', 'object', 'property'],
       ['b', 'messages available', 'message_available'],
       [' ', 'console %s %s', 'console_log', 'method', 'input'],
       ['R', 'eval %s', 'eval', 'input']
