@@ -1,314 +1,37 @@
 // Scratch Extension for Discord (https://discordapp.com)
+// uses discord.io from izy521
 
-'use strict';
-class EventEmitter {
-  on (e, d) {
-    window.addEventListener(e, eOn);
+!function(e){function n(e,n){return v(n,[new Error(e)])}function t(e,n,t,r){if("function"==typeof r){if(t=t||{},!n&&i(t))return r(null,t.body);var s=new Error(n||e);return s.name="ResponseError",s.statusCode=t.statusCode,s.statusMessage=t.statusMessage,s.response=t.body,r(s)}}function i(e){return 2===(e.statusCode/100|0)}function r(e){return e?e.statusCode+" "+e.statusMessage+"\n"+JSON.stringify(e.body):null}function s(e,n,i,r){R(e,n,function(n){e._req("post",de.MESSAGES(n),i,function(e,n){t("Unable to send messages",e,n,r)})})}function o(e,n,t,i){if(e[t]||(e[t]={}),null===n)return void(e[t][i.id]=i);var r=Object.keys(e[t]);r.length>n&&delete e[t][r[0]],e[t][i.id]=i}function a(e){return{content:String(e),nonce:Math.floor(Math.random()*Number.MAX_SAFE_INTEGER)}}function c(){var e={accept:"*/*","accept-language":"en-US;q=0.8"};le&&(e["accept-encoding"]="gzip, deflate",e.user_agent="DiscordBot (https://github.com/izy521/discord.io, "+fe+")",e.dnt=1);try{e.authorization=(this.bot?"Bot ":"")+this.internals.token}catch(n){}return e}function u(e,n,t,i,r){return 0>=i?s(e,n,t,r):(i-=i>5e3?5e3:i,void e.simulateTyping(n,function(){setTimeout(u,i,e,n,t,i,r)}))}function d(e,t){var i,r,s,o,a=c.call(this);if(r="function"==typeof arguments[2]?arguments[2]:(i=arguments[2],arguments[3]),le)return s=Ae.parse(t),s.method=e,s.headers=a,o=De[s.protocol.slice(0,-1)].request(s,function(e){var n=[];e.on("data",function(e){n[n.length]=e}),e.once("end",function(){n=Buffer.concat(n),Ee.gunzip(n,function(t,i){t||(i=i.toString());try{e.body=JSON.parse(i||n)}catch(s){}return r(null,e)})})}),("object"===_(i)||"get"===e.toLowerCase())&&o.setHeader("Content-Type","application/json; charset=utf-8"),i instanceof ae&&o.setHeader("Content-Type","multipart/form-data; boundary="+i.boundary),i&&o.write(i.result||JSON.stringify(i),i.result?"binary":"utf-8"),o.end(),o.once("error",function(e){return r(e.message)});o=new XMLHttpRequest,o.open(e.toUpperCase(),t,!0);for(var u in a)o.setRequestHeader(u,a[u]);return o.onreadystatechange=function(){if(4==o.readyState){o.statusCode=o.status,o.statusMessage=o.statusText;try{o.body=JSON.parse(o.responseText)}catch(e){return n(e,r)}r(null,o)}},("object"===_(i)||"get"===e.toLowerCase())&&o.setRequestHeader("Content-Type","application/json; charset=utf-8"),i instanceof ae&&o.setRequestHeader("Content-Type","multipart/form-data; boundary="+i.boundary),i?o[i.result?"sendAsBinary":"send"](i.result?i.result:JSON.stringify(i)):void o.send(null)}function l(e,n){e&&1==e.readyState&&e.send(JSON.stringify(n))}function f(e){try{return JSON.parse(JSON.stringify(e))}catch(n){}}function h(e,n,t){t||(t=[]);for(var i in e)t.indexOf(i)>-1||(n[i]=e[i])}function m(e,n){n.forEach(function(n){Object.defineProperty(e,n[0],{configurable:!0,writable:!0,value:n[1]})},e)}function _(e){return Object.prototype.toString.call(e).match(/ (.*)]/)[1].toLowerCase()}function v(e,n){return"function"==typeof e?e.apply(this,n):void 0}function p(e){var n=0,t="",i=Object.keys(e);for(n;n<i.length;n++)t+=i[n]+"="+e[i[n]]+"&";return"?"+t.slice(0,-1)}function E(e,n){if(n.t){var t=n.t.split("_"),i=1,r=[t[0].toLowerCase()];for(i;i<t.length;i++)r[0]+=t[i][0]+t[i].slice(1).toLowerCase();for(i=2;i<arguments.length;i++)r.push(arguments[i]);r.push(n),e.emit.apply(e,r)}}function g(e,n){return n=n||{},n.binary?JSON.parse(Ee.inflateSync(e).toString()):JSON.parse(e)}function b(e,n){if(e){var t,i,r,s,o,a=e._evts;if(le)return n?e.removeAllListeners(n):e.removeAllListeners();if(n&&a[n])for(t=0;t<a[n].length;t++)e.removeListener(n,a[n][t]);if(!n)for(i=Object.keys(a),r=0;r<i.length;r++)for(s=a[i[r]],o=0;o<s.length;o++)e.removeListener(i[r],s[o])}}function y(e,n){return n|1<<e}function S(e,n){return n&~(1<<e)}function D(e,n){return 1==(n>>e&1)}function I(e){return function(){return 1==(this._permissions>>e&1)}}function A(e){return function(n){return n===!0?this._permissions|=1<<e:n===!1?this._permissions&=~(1<<e):void 0}}function w(e,n){for(var t=0;t<n.length;t++)e.servers[n[t].id]=new ne(e,n[t])}function C(e,n){for(var t=0;t<n.length;t++)e.directMessages[n[t].id]=new ie(e._uIDToDM,n[t])}function R(e,n,t){return e._uIDToDM[n]?t(e._uIDToDM[n]):e.users[n]?e.createDMChannel(n,function(e,n){return e?console.log("Internal ID resolver error: "+e):void t(n.id)}):t(n)}function N(e){return e.detail||([e.data][0]?[e.data]:[e.code])}function T(e,n){e.servers={},e.channels={},e.users={},e.directMessages={},e.internals={oauth:{},version:fe,settings:{}},e._connecting=!0,M(e,n)}function M(e,n){return n.token?O(e,n,n.token):void 0}function O(e,n,t){e.internals.token=t,d("get",de.GATEWAY,function(t,s){return t||!i(s)?(e._connecting=!1,e.emit("disconnect","Error GETing gateway:\n"+r(s),0)):void k(e,n,s.body.url+"/?encoding=json&v="+he)})}function k(e,n,t){e._ws=new ue(t),e.internals.gatewayUrl=t,e.presenceStatus="online",e.connected=!0,e._ws.once("open",L.bind(e,n)),e._ws.once("close",G.bind(e)),e._ws.once("error",G.bind(e)),e._ws.on("message",q.bind(e,n))}function U(e,n,t){return n[0]?(l(e._ws,{op:8,d:{guild_id:n.splice(0,50),query:"",limit:0}}),void setTimeout(U,0,e,n,t)):v(t)}function L(e){var n={op:2,d:{token:this.internals.token,v:he,compress:le&&!!Ee.inflateSync,large_threshold:me,properties:{$os:le?require("os").platform():navigator.platform,$browser:"discord.io",$device:"discord.io",$referrer:"",$referring_domain:""}}};this._connecting=!1,"array"===_(e.shard)&&2===e.shard.length&&e.shard[0]<=e.shard[1]&&e.shard[1]>1&&(n.d.shard=e.shard),l(this._ws,n)}function q(e,n,t){var i,r,s,a,c,u,d,m,_=g(n,t),v=_.d,p=this;try{p.internals.sequence=_.s}catch(b){}switch(10===_.op&&(p._mainKeepAlive=setInterval(l,v.heartbeat_interval,p._ws,{op:1,d:p.internals.sequence})),p.emit("any",_),p.emit("debug",_),_.t){case"READY":return h(v.user,p),p.internals.sessionID=v.session_id,w(p,v.guilds),C(p,v.private_channels),p.getOauthInfo(function(e,n){if(p.bot){if(e)return console.log(e);p.internals.oauth=n,p.inviteURL="https://discordapp.com/oauth2/authorize?client_id="+n.id+"&scope=bot"}}),p.getAccountSettings(function(e,n){return e?console.log(e):void(p.internals.settings=n)}),function(){function e(){return n?void 0:Object.keys(p.servers).every(function(e){return!p.servers[e].unavailable})?(clearTimeout(t),p.emit("ready",_)):void setTimeout(e,0)}var n=!1,t=setTimeout(function(){n=!0,p.emit("ready",_)},3500);e()}();case"MESSAGE_CREATE":return p.emit("message",v.author.username,v.author.id,v.channel_id,v.content,_),E(p,_,v.author.username,v.author.id,v.channel_id,v.content),o(p._messageCache,p._messageCacheLimit,v.channel_id,v);case"MESSAGE_UPDATE":try{E(p,_,p._messageCache[v.channel_id][v.id],v)}catch(b){E(p,_,void 0,v)}return o(p._messageCache,p._messageCacheLimit,v.channel_id,v);case"PRESENCE_UPDATE":if(!v.guild_id)break;m=v.guild_id,d=v.user.id,p.users[d]||(p.users[d]={}),p.servers[m].members[d]||(p.servers[m].members[d]={}),u=p.users[d],c=p.servers[m].members[d];for(r in v.user)u[r]=v.user[r];u.game=v.game;for(r in v)["user","guild_id","game"].indexOf(r)>-1||(c[r]=v[r]);p.emit("presence",u.username,u.id,c.status,u.game,_);break;case"USER_UPDATE":for(i in v)p[i]=v[i];break;case"USER_SETTINGS_UPDATE":for(i in v)p.internals[i]=v[i];break;case"GUILD_CREATE":return p.servers[v.id]=new ne(p,v),E(p,_,p.servers[v.id]);case"GUILD_UPDATE":return s=f(p.servers[v.id]),ne.update(p,v),E(p,_,s,p.servers[v.id]);case"GUILD_DELETE":return E(p,_,p.servers[v.id]),delete p.servers[v.id];case"GUILD_MEMBER_ADD":return p.users[v.user.id]=new re(v.user),p.servers[v.guild_id].members[v.user.id]=new se(p,v),p.servers[v.guild_id].member_count+=1,E(p,_,p.servers[v.guild_id].members[v.user.id]);case"GUILD_MEMBER_UPDATE":return s=f(p.servers[v.guild_id].members[v.user.id]),se.update(p.servers[v.guild_id],v),E(p,_,s,p.servers[v.guild_id].members[v.user.id]);case"GUILD_MEMBER_REMOVE":if(v.user&&v.user.id===p.id)return;return p.servers[v.guild_id].member_count-=1,E(p,_,p.servers[v.guild_id].members[v.user.id]),delete p.servers[v.guild_id].members[v.user.id];case"GUILD_ROLE_CREATE":return p.servers[v.guild_id].roles[v.role.id]=new oe(v.role),E(p,_,p.servers[v.guild_id].roles[v.role.id]);case"GUILD_ROLE_UPDATE":return s=f(p.servers[v.guild_id].roles[v.role.id]),oe.update(p.servers[v.guild_id],v),E(p,_,s,p.servers[v.guild_id].roles[v.role.id]);case"GUILD_ROLE_DELETE":return E(p,_,p.servers[v.guild_id].roles[v.role_id]),delete p.servers[v.guild_id].roles[v.role_id];case"CHANNEL_CREATE":var y=v.id;if(v.is_private){if(p.directMessages[y])return;return p.directMessages[y]=new ie(p._uIDToDM,v),E(p,_,p.directMessages[y])}if(p.channels[y])return;return p.channels[y]=new te(p,p.servers[v.guild_id],v),E(p,_,p.channels[y]);case"CHANNEL_UPDATE":return s=f(p.channels[v.id]),te.update(p,v),E(p,_,s,p.channels[v.id]);case"CHANNEL_DELETE":return v.is_private===!0?(E(p,_,p.directMessages[v.id]),delete p.directMessages[v.id],delete p._uIDToDM[v.recipient.id]):(E(p,_,p.servers[v.guild_id].channels[v.id]),delete p.servers[v.guild_id].channels[v.id],delete p.channels[v.id]);case"VOICE_STATE_UPDATE":var S;try{S=p.servers[v.guild_id].members[v.user_id].voice_channel_id,S&&delete p.servers[v.guild_id].channels[S].members[v.user_id],v.channel_id&&(p.servers[v.guild_id].channels[v.channel_id].members[v.user_id]=v),p.servers[v.guild_id].members[v.user_id].voice_channel_id=v.channel_id}catch(b){}break;case"GUILD_MEMBERS_CHUNK":a=v.members,m=v.guild_id,p.servers[m].members||(p.servers[m].members={}),a.forEach(function(e){p.servers[m].members[e.user.id]||(p.users[e.user.id]||(p.users[e.user.id]=new re(e.user)),p.servers[m].members[e.user.id]=new se(p,e))});var D=Object.keys(p.servers).every(function(e){return e=p.servers[e],e.member_count===Object.keys(e.members).length});if(D)return p.emit("allUsers");break;case"GUILD_SYNC":for(var I=0;I<v.members.length;I++)p.users[v.members[I].user.id]||(p.users[v.members[I].user.id]=new re(v.members[I].user)),p.servers[v.id].members[v.members[I].user.id]=new se(p,v.members[I]);for(var A=0;A<v.presences.length;A++){var R=v.presences[A].user.id;delete v.presences[A].user,h(v.presences[A],p.servers[v.id].members[R])}p.servers[v.id].large=v.large}return E(p,_)}function G(n,t){var i=this,r=e.Codes.WebSocket[n];clearInterval(i._mainKeepAlive),i.connected=!1,i.presenceStatus="offline",b(i._ws,"message"),i._ws=null,i.emit("disconnect",r,n)}function P(e,t){var i,r,s=t.endpoint.split(":")[0];return Y(e,t),t.ws={},t.udp={},t.members={},t.ready=!1,t.translator={},t.wsKeepAlive=null,t.udpKeepAlive=null,t.keepAlivePackets=0,t.emitter=new ce,t.keepAliveBuffer=new Buffer(8).fill(0),i=t.ws.connection=new ue("wss://"+s),le?ge.lookup(s,function(s,o){return s?n(s,t.callback):(t.address=o,r=t.udp.connection=pe.createSocket("udp4"),r.bind({exclusive:!0}),r.once("message",F.bind(e,t)),i.once("open",V.bind(e,t)),i.on("message",K.bind(e,t)),void i.once("close",H.bind(e,t)))}):(i.once("open",V.bind(e,t)),i.on("message",K.bind(e,t)),i.once("close",H.bind(e,t)),v(t.callback,[null,t.emitter]))}function B(e,n,t){if(e._vChannels[n]){try{e._vChannels[n].ws.connection.close(),e._vChannels[n].udp.connection.close()}catch(i){}return l(e._ws,{op:4,d:{guild_id:e.channels[n].guild_id,channel_id:null,self_mute:!1,self_deaf:!1}}),delete e._vChannels[n],v(t,[null])}}function j(e){if(e.keepAliveBuffer){e.keepAlivePackets>4294967294&&(e.keepAlivePackets=0,e.keepAliveBuffer.fill(0)),e.keepAliveBuffer.writeUIntLE(++e.keepAlivePackets,0,6);try{return e.udp.connection.send(e.keepAliveBuffer,0,e.keepAliveBuffer.length,e.ws.port,e.address)}catch(n){}}}function x(e,n,t){if(n=g(n,t),"VOICE_STATE_UPDATE"===n.t){if(n.d.user_id!==this.id||null===n.d.channel_id)return;e.session=n.d.session_id}else"VOICE_SERVER_UPDATE"===n.t&&(e.token=n.d.token,e.serverID=n.d.guild_id,e.endpoint=n.d.endpoint,P(this,e),this._ws.removeListener("message",e.handler),delete e.handler)}function V(e){l(e.ws.connection,{op:0,d:{server_id:e.serverID,user_id:this.id,session_id:e.session,token:e.token}})}function K(e,t,i){var r=this,s=g(t,i),o=e.callback;switch(s.op){case 2:for(var a in s.d)e.ws[a]=s.d[a];if(e.wsKeepAlive=setInterval(l,s.d.heartbeat_interval,e.ws.connection,{op:3,d:null}),!le)return;var c=new Buffer(70);c.writeUIntBE(s.d.ssrc,0,4),e.udp.connection.send(c,0,c.length,s.d.port,e.address,function(t){t&&(B(r,e.channelID),n("UDP discovery error",o))}),e.udpKeepAlive=setInterval(j,5e3,e);break;case 4:e.selectedMode=s.d.mode,e.secretKey=s.d.secret_key,e.ready=!0,v(o,[null,e.emitter]),delete e.callback;break;case 5:e.emitter.emit("speaking",s.d.user_id,s.d.ssrc,s.d.speaking)}}function H(e){return clearInterval(e.wsKeepAlive),clearInterval(e.udpKeepAlive),e.emitter.emit("disconnect",e.channelID),b(e.emitter),b(e.udp.connection,"message"),b(e.ws.connection,"message"),void(e.emitter=null)}function F(e,n,t){for(var i,r=JSON.parse(JSON.stringify(n)).data,s="",o=4;o<r.indexOf(0,o);o++)s+=String.fromCharCode(r[o]);i=n.readUIntLE(n.length-2,2).toString(10);var a={op:1,d:{protocol:"udp",data:{address:s,port:Number(i),mode:e.ws.modes[1]}}};l(e.ws.connection,a)}function Y(e,n){e._ws.once("message",function(t,i){return t=g(t,i),"VOICE_STATE_UPDATE"!==t.t||t.d.session_id!==n.session||t.d.guild_id!==n.serverID?Y(e,n):null===t.d.channel_id?B(e,n.channelID):void(t.d.channel_id!=n.channelID&&(e._vChannels[t.d.channel_id]=n,delete e._vChannels[n.channelID],n.channelID=t.d.channel_id,Y(e,n)))})}function J(e,n,t,i){be.Duplex.call(this);var r,s=this,o=$.bind(this);this.audioChannels=n,this.members=e.members,m(this,[["_sequence",0],["_timestamp",0],["_exited",!1],["_readable",!1],["_streamRef",null],["_startTime",null],["_playingAudioFile",!1],["_voiceSession",e],["_port",e.ws.port],["_address",e.address],["_decodeNonce",new Uint8Array(24)],["_vUDP",e.udp.connection],["_secretKey",new Uint8Array(e.secretKey)],["_mixedDecoder",new Ce.OpusEncoder(48e3,n)]]),r=Ie.spawn(t,["-i","pipe:0","-map","0:a","-acodec","libopus","-f","data","-sample_fmt","s16","-vbr","off","-compression_level","10","-ar","48000","-ac",s.audioChannels,"-b:a","128000","pipe:1"],{stdio:["pipe","pipe","ignore"]}),r.stdout.once("error",function(e){r.stdout.emit("end"),r.kill(),s._exited=!0}),r.stdout.on("readable",function(){s._readable||(s._readable=!0,l(s._voiceSession.ws.connection,Te._speakingStart),s._startTime=(new Date).getTime(),X(s,r.stdout,1))}),this._write=r.stdin.write.bind(r.stdin),this._read=function(){},i&&(e.ws.connection.on("message",function(n,t){n=g(n,t),5===n.op&&(e.members[n.d.user_id]||(e.members[n.d.user_id]=new be.Readable({highWaterMark:i,read:function(e){}}),e.members[n.d.user_id].decoder=new Ce.OpusEncoder(48e3,2)),e.members[n.d.user_id].ssrc=n.d.ssrc,e.translator[n.d.ssrc]=e.members[n.d.user_id])}),this._vUDP.on("message",o))}function X(e,n,t){var i=n.read(320)||n.read();return i?setTimeout(function(){W(e,i||[248,255,254]),X(e,n,t+1)},20+(e._startTime+20*t-Date.now())):(l(e._voiceSession.ws.connection,Te._speakingEnd),e._readable=!1,e.emit("done"))}function z(e,n){function t(e,n,r){if(!i){var s,o;return s=n.read(1920*e.audioChannels),o=[248,255,254],s&&s.length===1920*e.audioChannels&&(o=e._mixedDecoder.encode(s)),setTimeout(function(){W(e,o),t(e,n,r+1)},20+(e._startTime+20*r-Date.now()))}}var i=!1;n.on("end",function(){i=!0,l(e._voiceSession.ws.connection,Te._speakingEnd)}),t(e,n,1)}function W(e,n){e._sequence=e._sequence<65535?e._sequence+1:0,e._timestamp=e._timestamp<4294967295?e._timestamp+960:0;var t=J.VoicePacket(n,e._voiceSession.ws.ssrc,e._sequence,e._timestamp,e._secretKey);try{e._vUDP.send(t,0,t.length,e._port,e._address)}catch(i){return}}function $(e){if(8!==e.length){var n,t,i=e.slice(0,12),r=e.slice(12),s=i.readUIntBE(8,4),o=this._voiceSession.translator[s];this._decodeNonce.set(i);try{n=new Buffer(we.secretbox.open(new Uint8Array(r),this._decodeNonce,this._secretKey)),o?(t=o.decoder.decode(n),Q(o,t)):t=this._mixedDecoder.decode(n),Q(this,t),this.emit("incoming",s,t)}catch(a){}}}function Q(e,n){return e.push(new Buffer(n))||!!e.read(n.length)}function Z(e){if(!e[0])return null;var n=Ie.spawnSync(e.shift());return n.error?Z(e):n.file}function ee(){}function ne(e,n){var t=this;h(n,this),this.large=this.large||this.member_count>me,n.unavailable||(this.channels={},this.members={},this.roles={},n.channels.forEach(function(n){e.channels[n.id]=new te(e,t,n)}),n.members.forEach(function(n){e.users[n.user.id]=new re(n.user),t.members[n.user.id]=new se(e,n)}),n.presences.forEach(function(n){var i=n.user.id;delete n.user,e.users[i].game=n.game,t.members[i].status=n.status}),n.roles.forEach(function(e){t.roles[e.id]=new oe(e)}),n.voice_states.forEach(function(e){var n=e.channel_id,i=e.user_id;t.channels[n]&&t.members[i]&&(t.channels[n].members[i]=e,t.members[i].voice_channel_id=n)}),delete this.voice_states,delete this.presences)}function te(e,n,t){var i=this;this.members={},this.permissions={user:{},role:{}},this.guild_id=n.id,h(t,this,["permission_overwrites"]),Object.defineProperty(n.channels,i.id,{get:function(){return e.channels[i.id]},set:function(n){e.channels[i.id]=n},enumerable:!0,configurable:!0}),t.permission_overwrites.forEach(function(e){var n="member"===e.type?"user":"role";this.permissions[n][e.id]={allow:e.allow,deny:e.deny}},this),delete this.is_private}function ie(e,n){h(n,this),e[n.recipient.id]=n.id,delete this.is_private}function re(e){h(e,this),this.bot=this.bot||!1}function se(e,n){this.id=n.user.id,this.joined_at=Date.parse(n.joined_at),h(n,this,["user","joined_at"]),["username","discriminator","bot","avatar","game"].forEach(function(n){n in se.prototype||Object.defineProperty(se.prototype,n,{get:function(){return e.users[this.id][n]},set:function(t){e.users[this.id][n]=t},enumerable:!0})})}function oe(e){h(e,this,["permissions"]),this._permissions=e.permissions||e._permissions}function ae(){this.boundary="NodeDiscordIO-"+fe,this.result=""}function ce(){function e(){var e=document.createDocumentFragment();["addEventListener","dispatchEvent","removeEventListener"].forEach(function(n){this[n]||(this[n]=e[n].bind(e))},this)}var n=this;return le?(Se.call(this),this.prototype?_e.inherits(this,Se):new Se):(e.call(this),this._evts={},this.on=function(e,t){function i(e){return t.apply(null,N(e))}return n._evts[e]||(n._evts[e]=[]),n._evts[e].push(i),this.addEventListener(e,i)},this.once=function(e,t){function i(r){return t.apply(null,N(r)),n.removeListener(e,i)}return n._evts[e]||(n._evts[e]=[]),n._evts[e].push(i),this.addEventListener(e,i)},this.removeListener=function(e,t){return n._evts[e]&&n._evts[e].splice(n._evts[e].lastIndexOf(t),1),this.removeEventListener(e,t)},this.emit=function(e){return this.dispatchEvent(new CustomEvent(e,{detail:Array.prototype.slice.call(arguments,1)}))},this)}function ue(e,n){return le?new(require("ws"))(e,n):ce.call(new WebSocket(e))}var de,le="undefined"==typeof window&&"undefined"==typeof navigator,fe="2.x.x",he=5,me=250;if(le)var _e=require("util"),ve=require("fs"),pe=require("dgram"),Ee=require("zlib"),ge=require("dns"),be=require("stream"),ye=require("path").basename,Se=require("events").EventEmitter,De={http:require("http"),https:require("https")},Ie=require("child_process"),Ae=require("url"),we=require("tweetnacl"),Ce=null;try{fe=require("../package.json").version}catch(Re){}le||(fe+="-browser"),e.Client=function(e){return le||ce.call(this),e&&"Object"===e.constructor.name?("number"!=typeof e.messageCacheLimit&&(e.messageCacheLimit=50),m(this,[["_ws",null],["_uIDToDM",{}],["_vChannels",{}],["_messageCache",{}],["_connecting",!1],["_mainKeepAlive",null],["_req",d.bind(this)],["_messageCacheLimit",e.messageCacheLimit]]),this.presenceStatus="offline",this.connected=!1,this.inviteURL=null,this.connect=this.connect.bind(this,e),void(e.autorun&&e.autorun===!0&&this.connect())):console.error("An Object is required to create the discord.io client.")},le&&ce.call(e.Client);var Ne=e.Client.prototype;Ne.connect=function(){return this.connected===!1&&this._connecting===!1?T(this,arguments[0]):void 0},Ne.disconnect=function(){this._ws&&this._ws.close()},Ne.editUserInfo=function(e,i){var r={avatar:this.avatar,email:this.email,new_password:null,password:null,username:this.username},s=Object.keys(r);for(var o in e){if(s.indexOf(o)<0)return n("[editUserInfo] '"+o+"' is not a valid key. Valid keys are: "+s.join(", "),i);r[o]=e[o]}e.avatar&&(r.avatar="data:image/jpg;base64,"+e.avatar),this._req("patch",de.ME,r,function(e,n){t("Unable to edit user information",e,n,i)})},Ne.setPresence=function(e){var n={op:3,d:{idle_since:e.idle_since||null,game:"object"===_(e.game)?{name:e.game.name?String(e.game.name):null,type:e.game.type?Number(e.game.type):null,url:e.game.url?String(e.game.url):null}:null}};return l(this._ws,n),null===n.d.idle_since?void(this.presenceStatus="online"):void(this.presenceStatus="idle")},Ne.getOauthInfo=function(e){this._req("get",de.OAUTH,function(n,i){t("Error GETing OAuth information",n,i,e)})},Ne.getAccountSettings=function(e){this._req("get",de.SETTINGS,function(n,i){t("Error GETing client settings",n,i,e)})},Ne.uploadFile=function(e,i){var r,s=this,o=new ae,c=a(e.message||""),u=e.file instanceof Buffer,d="string"===_(e.file);if(!u&&!d)return n("[uploadFile] uploadFile requires a String or Buffer as the 'file' value",i);if(u){if(!e.filename)return n("[uploadFile] uploadFile requires a 'filename' value to be set if using a Buffer",i);r=e.file}if(d)try{r=ve.readFileSync(e.file)}catch(l){return n("[uploadFile] File does not exist: "+e.file,i)}o.append(["content",c.content]),o.append(["mentions",""]),o.append(["tts",!1]),o.append(["nonce",c.nonce]),o.append(["file",r,e.filename||ye(e.file)]),o.finalize(),R(s,e.to,function(e){s._req("post",de.MESSAGES(e),o,function(e,n){t("Unable to upload file",e,n,i)})})},Ne.sendMessage=function(e,n){var t=a(e.message);return t.tts=e.tts===!0,t.nonce=e.nonce||t.nonce,e.typing===!0?u(this,e.to,t,.12*String(e.message).length*1e3,n):void s(this,e.to,t,n)},Ne.getMessage=function(e,n){this._req("get",de.MESSAGES(e.channelID,e.messageID),function(e,i){t("Unable to get message",e,i,n)})},Ne.getMessages=function(e,n){var i={limit:"number"!=typeof e.limit?50:e.limit};e.before&&(i.before=e.before),e.after&&(i.after=e.after),this._req("get",de.MESSAGES(e.channelID)+p(i),function(e,i){t("Unable to get messages",e,i,n)})},Ne.editMessage=function(e,n){this._req("patch",de.MESSAGES(e.channelID,e.messageID),a(e.message),function(e,i){t("Unable to edit message",e,i,n)})},Ne.deleteMessage=function(e,n){this._req("delete",de.MESSAGES(e.channelID,e.messageID),function(e,i){t("Unable to delete message",e,i,n)})},Ne.deleteMessages=function(e,n){this._req("post",de.BULK_DELETE(e.channelID),{messages:e.messageIDs.slice(0,100)},function(e,i){t("Unable to delete messages",e,i,n)})},Ne.pinMessage=function(e,n){this._req("put",de.PINNED_MESSAGES(e.channelID,e.messageID),function(e,i){t("Unable to pin message",e,i,n)})},Ne.getPinnedMessages=function(e,n){this._req("get",de.PINNED_MESSAGES(e.channelD),function(e,i){t("Unable to get pinned messages",e,i,n)})},Ne.deletePinnedMessage=function(e,n){this._req("delete",de.PINNED_MESSAGES(e.channelID,e.messageID),function(e,i){t("Unable to delete pinned message",e,i,n)})},Ne.simulateTyping=function(e,n){this._req("post",de.TYPING(e),function(e,i){t("Unable to simulate typing",e,i,n)})},Ne.fixMessage=function(e){var n=this;return e.replace(/<@&(\d*)>|<@!(\d*)>|<@(\d*)>|<#(\d*)>/g,function(e,t,i,r,s){var o,a;if(r||s){if(n.users[r])return"@"+n.users[r].username;if(n.channels[s])return"#"+n.channels[s].name}if(t||i)for(o=Object.keys(n.servers),a=0;a<o.length;a++){if(n.servers[o[a]].roles[t])return"@"+n.servers[o[a]].roles[t].name;if(n.servers[o[a]].members[i])return"@"+n.servers[o[a]].members[i].nick}})},Ne.kick=function(e,n){this._req("delete",de.MEMBERS(e.serverID,e.userID),function(e,i){t("Could not kick user",e,i,n)})},Ne.ban=function(e,n){e.lastDays&&(e.lastDays=Number(e.lastDays),e.lastDays=Math.min(e.lastDays,7),e.lastDays=Math.max(e.lastDays,1)),this._req("put",de.BANS(e.serverID,e.userID)+(e.lastDays?"?delete-message-days="+e.lastDays:""),function(e,i){t("Could not ban user",e,i,n)})},Ne.unban=function(e,n){this._req("delete",de.BANS(e.serverID,e.userID),function(e,i){t("Could not unban user",e,i,n)})},Ne.moveUserTo=function(e,n){this._req("patch",de.MEMBERS(e.serverID,e.userID),{channel_id:e.channelID},function(e,i){t("Could not move the user",e,i,n)})},Ne.mute=function(e,n){this._req("patch",de.MEMBERS(e.serverID,e.userID),{mute:!0},function(e,i){t("Could not mute user",e,i,n)})},Ne.unmute=function(e,n){this._req("patch",de.MEMBERS(e.serverID,e.userID),{mute:!1},function(e,i){t("Could not unmute user",e,i,n)})},Ne.deafen=function(e,n){this._req("patch",de.MEMBERS(e.serverID,e.userID),{deaf:!0},function(e,i){t("Could not deafen user",e,i,n)})},Ne.undeafen=function(e,n){this._req("patch",de.MEMBERS(e.serverID,e.userID),{deaf:!1},function(e,i){t("Could not undeafen user",e,i,n)})},Ne.createServer=function(e,n){var i,r=this;i={icon:null,name:null,region:null};for(var s in e)-1!==Object.keys(i).indexOf(s)&&(i[s]=e[s]);e.icon&&(i.icon="data:image/jpg;base64,"+e.icon),r._req("post",de.SERVERS(),i,function(e,i){try{r.servers[i.body.id]={};for(var s in i.body)r.servers[i.body.id][s]=i.body[s]}catch(o){}t("Could not create server",e,i,n)})},Ne.editServer=function(e,i){var r,s,o=e.serverID,a=this;if(!a.servers[o])return n("[editServer] Server "+o+" not found.",i);s=a.servers[o],r={name:s.name,icon:s.icon,region:s.region,afk_channel_id:s.afk_channel_id,afk_timeout:s.afk_timeout};for(var c in e)-1!==Object.keys(r).indexOf(c)&&("afk_channel_id"!==c?"afk_timeout"!==c?r[c]=e[c]:[60,300,900,1800,3600].indexOf(Number(e[c]))>-1&&(r[c]=e[c]):s.channels[e[c]]&&"voice"===s.channels[e[c]].type&&(r[c]=e[c]));e.icon&&(r.icon="data:image/jpg;base64,"+e.icon),a._req("patch",de.SERVERS(e.serverID),r,function(e,n){t("Unable to edit server",e,n,i)})},Ne.editServerWidget=function(e,n){var i,r=this,s=de.SERVERS(e.serverID)+"/embed";r._req("get",s,function(o,a){return o?t("Unable to GET server widget settings. Can not edit without retrieving first.",o,a,n):(i={enabled:"enabled"in e?e.enabled:a.body.enabled,channel_id:"channelID"in e?e.channelID:a.body.channel_id},void r._req("patch",s,i,function(e,i){t("Unable to edit server widget",e,i,n)}))})},Ne.leaveServer=function(e,n){this._req("delete",de.SERVERS_PERSONAL(e),function(e,i){t("Could not leave server",e,i,n)})},Ne.deleteServer=function(e,n){this._req("delete",de.SERVERS(e),function(e,i){t("Could not delete server",e,i,n)})},Ne.transferOwnership=function(e,n){this._req("patch",de.SERVERS(e.serverID),{owner_id:e.userID},function(e,i){t("Could not transfer server ownership",e,i,n)})},Ne.acceptInvite=function(e,i){if(this.bot)return n("[acceptInvite] This account is a 'bot' type account, and cannot use 'acceptInvite'. Please use the client's inviteURL property instead.",i);var r=this,s=Object.keys(r.servers);this._req("post",de.INVITES(e),function(o,a){try{if(r.servers[a.body.guild.id]){if(s.indexOf(a.body.guild.id)>-1)return n("Already joined server: "+a.body.guild.id,i)}else r.servers[a.body.guild.id]=a.body.guild,r.servers[a.body.guild.id].channels={},r.servers[a.body.guild.id].channels[a.body.channel.id]=a.body.channel}catch(c){}t("The invite code provided "+e+" is incorrect.",o,a,i)})},Ne.createInvite=function(e,n){var i,r=this;i={max_age:0,max_users:0,temporary:!1},1===Object.keys(e).length&&e.channelID&&(i={validate:r.internals.lastInviteCode||null});for(var s in e)-1!==Object.keys(i).indexOf(s)&&(i[s]=e[s]);this._req("post",de.CHANNEL(e.channelID)+"/invites",i,function(e,i){try{r.internals.lastInviteCode=i.body.code}catch(s){}t("Unable to create invite",e,i,n)})},Ne.deleteInvite=function(e,n){this._req("delete",de.INVITES(e),function(e,i){t("Unable to delete invite",e,i,n)})},Ne.queryInvite=function(e,n){this._req("get",de.INVITES(e),function(e,i){t("Unable to get information about invite",e,i,n)})},Ne.getServerInvites=function(e,n){this._req("get",de.SERVERS(e)+"/invites",function(i,r){t("Unable to get invite list for server"+e,i,r,n)})},Ne.getChannelInvites=function(e,n){this._req("get",de.CHANNEL(e)+"/invites",function(i,r){t("Unable to get invite list for channel"+e,i,r,n)})},Ne.createChannel=function(e,n){var i=this,r={name:e.name,type:-1===["text","voice"].indexOf(e.type)?"text":e.type};this._req("post",de.SERVERS(e.serverID)+"/channels",r,function(e,r){try{var s=r.body.guild_id,o=r.body.id;i.channels[o]=new te(i,i.servers[s],r.body)}catch(a){}t("Unable to create channel",e,r,n)})},Ne.createDMChannel=function(e,n){var r=this;this._req("post",de.USER(r.id)+"/channels",{recipient_id:e},function(e,s){!e&&i(s)&&(r._uIDToDM[s.body.recipient.id]=s.body.id),t("Unable to create DM Channel",e,s,n)})},Ne.deleteChannel=function(e,n){this._req("delete",de.CHANNEL(e),function(e,i){t("Unable to delete channel",e,i,n)})},Ne.editChannelInfo=function(e,i){var r,s;try{r=this.channels[e.channelID],s={name:r.name,topic:r.topic,bitrate:r.bitrate,position:r.position,user_limit:r.user_limit};for(var o in e)if(-1!==Object.keys(s).indexOf(o)){if(+e[o]){if("bitrate"===o){s.birate=Math.min(Math.max(e.bitrate,8e3),96e3);continue}if("user_limit"===o){s.user_limit=Math.min(Math.max(e.user_limit,0),99);continue}}s[o]=e[o]}this._req("patch",de.CHANNEL(e.channelID),s,function(e,n){t("Unable to edit channel",e,n,i)})}catch(a){return n(a,i)}},Ne.editChannelPermissions=function(e,i){var r,s,o,a,c,u;return e.userID||e.roleID?this.channels[e.channelID]?e.allow||e.deny||e["default"]?(s=e.userID?"user":"role",o=e[s+"ID"],a=this.channels[e.channelID],c=a.permissions[s][o]||{allow:0,deny:0},u=[0,4,28].concat("text"===a.type?[10,11,12,13,14,15,16,17,18]:[20,21,22,23,24,25]),"array"===_(e.allow)&&e.allow.forEach(function(e){u.indexOf(e)<0||(D(e,c.deny)&&(c.deny=S(e,c.deny)),c.allow=y(e,c.allow))}),"array"===_(e.deny)&&e.deny.forEach(function(e){u.indexOf(e)<0||(D(e,c.allow)&&(c.allow=S(e,c.allow)),c.deny=y(e,c.deny))}),"array"===_(e["default"])&&e["default"].forEach(function(e){u.indexOf(e)<0||(c.allow=S(e,c.allow),c.deny=S(e,c.deny))}),r={type:"user"===s?"member":"role",id:o,deny:c.deny,allow:c.allow},void this._req("put",de.CHANNEL(e.channelID)+"/permissions/"+o,r,function(e,n){t("Unable to edit permission",e,n,i)})):n("[editChannelPermissions] No allow, deny or default array provided.",i):n("[editChannelPermissions] No channel found for ID: "+e.channelID,i):n("[editChannelPermissions] No userID or roleID provided",i)},Ne.deleteChannelPermission=function(e,i){var r,s,o;return e.userID||e.roleID?this.channels[e.channelID]?(s=e.userID?"user":"role",o=e[s+"ID"],r={type:"user"===s?"member":"role",id:o},void this._req("delete",de.CHANNEL(e.channelID)+"/permissions/"+o,r,function(e,n){t("Unable to delete permission",e,n,i)})):n("[deleteChannelPermission] No channel found for ID: "+e.channelID,i):n("[deleteChannelPermission] No userID or roleID provided",i)},Ne.createRole=function(e,n){var i=this;this._req("post",de.ROLES(e),function(r,s){try{i.servers[e].roles[s.body.id]=new oe(s.body)}catch(o){}t("Unable to create role",r,s,n)})},Ne.editRole=function(i,r){var s,o;try{s=new oe(this.servers[i.serverID].roles[i.roleID]),o={name:s.name,color:s.color,hoist:s.hoist,permissions:s._permissions,mentionable:s.mentionable,position:s.position};for(var a in i)if(-1!==Object.keys(o).indexOf(a))if("permissions"!==a)"color"!==a?o[a]=i[a]:("#"===String(i[a])[0]&&(o.color=parseInt(String(i[a]).replace("#","0x"),16)),e.Colors[i[a]]&&(o.color=e.Colors[i[a]]));else for(var c in i[a])s[c]=i[a][c],o.permissions=s._permissions;this._req("patch",de.ROLES(i.serverID,i.roleID),o,function(e,n){t("Unable to edit role",e,n,r)})}catch(u){return n("[editRole] "+u,r)}},Ne.deleteRole=function(e,n){this._req("delete",de.ROLES(e.serverID,e.roleID),function(e,i){t("Could not remove role",e,i,n)})},Ne.addToRole=function(e,i){var r,s=e.serverID,o=e.roleID,a=e.userID;try{if(r=f(this.servers[s].members[a].roles),r.indexOf(o)>-1)return n(a+" already has the role "+o,i);r.push(o),this._req("patch",de.MEMBERS(s,a),{roles:r},function(e,n){t("Could not add role",e,n,i);
+})}catch(c){return n("[addToRole]"+c,i)}},Ne.removeFromRole=function(e,i){var r,s=e.serverID,o=e.roleID,a=e.userID;try{if(r=f(this.servers[s].members[a].roles),-1===r.indexOf(o))return n("Role "+o+" not found for user "+a,i);r.splice(r.indexOf(o),1),this._req("patch",de.MEMBERS(s,a),{roles:r},function(e,n){t("Could not remove role",e,n,i)})}catch(c){return n(c,i)}},Ne.editNickname=function(e,n){var i={nick:String(e.nick?e.nick:"")},r=e.userID===this.id?de.MEMBERS(e.serverID)+"/@me/nick":de.MEMBERS(e.serverID,e.userID);this._req("patch",r,i,function(e,i){t("Could not change nickname",e,i,n)})},Ne.editNote=function(e,n){this._req("put",de.NOTE(e.userID),{note:e.note},function(e,i){t("Could not edit note",e,i,n)})},Ne.getMember=function(e,n){this._req("get",de.MEMBERS(e.serverID,e.userID),function(e,i){t("Could not get member",e,i,n)})},Ne.getMembers=function(e,n){var i={};i.limit="number"!=typeof e.limit?50:e.limit,e.after&&(i.after=e.after),this._req("get",de.MEMBERS(e.serverID)+p(i),function(e,i){t("Could not get members",e,i,n)})},Ne.getBans=function(e,n){this._req("get",de.BANS(e),function(e,i){t("Could not get ban list",e,i,n)})},Ne.joinVoiceChannel=function(e,t){var i,r,s;try{i=this.channels[e].guild_id}catch(o){}return i?"voice"!==this.servers[i].channels[e].type?n("Selected channel is not a voice channel: "+e,t):this._vChannels[e]?n("Voice channel already active: "+e,t):(r={op:4,d:{guild_id:i,channel_id:e,self_mute:!1,self_deaf:!1}},this._vChannels[e]={serverID:i,channelID:e,token:null,session:null,endpoint:null,callback:t},s=x.bind(this,this._vChannels[e]),this._vChannels[e].handler=s,this._ws.on("message",s),void l(this._ws,r)):n("Cannot find the server related to the channel provided: "+e,t)},Ne.leaveVoiceChannel=function(e,t){return this._vChannels[e]?B(this,e,t):n("Not in the voice channel: "+e,t)},Ne.getAudioContext=function(e,t){if(!le)return n("Using audio in the browser is currently not supported.",t);Ce||(Ce=require("cjopus"));var i=e.channelID||e,r=this._vChannels[i],s=Z(["ffmpeg","avconv"]);return r?r.ready!==!0?n("The connection to the voice channel "+i+" has not been initialized yet.",t):s?(r.audio=r.audio||new J(r,e.stereo===!1?1:2,s,Math.abs(Number(e.maxStreamSize))),v(t,[null,r.audio])):n("You need either 'ffmpeg' or 'avconv' and they need to be added to PATH",t):n("You have not joined the voice channel: "+i,t)},Ne.getAllUsers=function(e){var t=Object.keys(this.servers).filter(function(e){return e=this.servers[e],e.members?e.member_count!==Object.keys(e.members).length&&(this.bot?e.large:!0):void 0},this);return t[0]?(this.bot||l(this._ws,{op:12,d:Object.keys(this.servers)}),U(this,t,e)):(this.emit("allUsers"),n("There are no users to be collected",e))},le&&_e.inherits(J,be.Duplex),J.VoicePacket=function(){if(le){var e=new Buffer(12),n=new Uint8Array(24),t=new Buffer(2048);return e[0]=128,e[1]=120,function(i,r,s,o,a){e.writeUIntBE(s,2,2),e.writeUIntBE(o,4,4),e.writeUIntBE(r,8,4),n.set(e);var c=new Buffer(we.secretbox(new Uint8Array(i),n,a));return e.copy(t),c.copy(t,12),t.slice(0,e.length+c.length)}}}();var Te=J.prototype;Te._speakingStart={op:5,d:{speaking:!0,delay:0}},Te._speakingEnd={op:5,d:{speaking:!1,delay:0}},Te.playAudioFile=function(e,t){if(this._playingAudioFile)return n("There is already a file being played.",t);var i,r,s=["ffmpeg","avconv"],o=this;return this._playingAudioFile=!0,(i=Z(s))?(r=Ie.spawn(i,["-i",e,"-f","s16le","-ar","48000","-ac",o.audioChannels,"pipe:1"],{stdio:["pipe","pipe","ignore"]}),r.stdout.once("end",function(){r.kill(),l(o._voiceSession.ws.connection,Te._speakingEnd),o._playingAudioFile=!1,o.emit("fileEnd")}),r.stdout.once("error",function(e){r.stdout.emit("end")}),r.stdout.once("readable",function(){l(o._voiceSession.ws.connection,Te._speakingStart),o._startTime=(new Date).getTime(),z(o,r.stdout,1)}),void(this._streamRef=r)):console.log("You need either 'ffmpeg' or 'avconv' and they need to be added to PATH")},Te.stopAudioFile=function(e){return this._playingAudioFile?(this._streamRef.stdout.end(),this._streamRef.kill(),this._playingAudioFile=!1,void v(e)):n("There is no file being played",e)},Te.send=function(e){l(this._voiceSession.ws.connection,this._speakingStart),this._startTime=(new Date).getTime(),z(this,e,1)},Object.defineProperty(ee.prototype,"creationTime",{get:function(){return+this.id/4194304+14200704e5},set:function(e){}}),[ne,te,ie,re,se,oe].forEach(function(e){e.prototype=Object.create(ee.prototype),Object.defineProperty(e.prototype,"constructor",{value:e,enumerable:!1})}),ae.prototype.append=function(e){var n="\r\n--";n+=this.boundary+"\r\n",n+='Content-Disposition: form-data; name="'+e[0]+'"',e[2]?(n+='; filename="'+e[2]+'"\r\n',n+="Content-Type: application/octet-stream\r\n"):n+="\r\n",n+="\r\n"+(e[1]instanceof Buffer?e[1]:Buffer(String(e[1]),"utf-8")).toString("binary"),this.result+=n},ae.prototype.finalize=function(){this.result+="\r\n--"+this.boundary+"--"},ne.update=function(e,n){e.servers[n.id]||(e.servers[n.id]={});for(var t in n)"roles"!==t?e.servers[n.id][t]=n[t]:n[t].forEach(function(t){e.servers[n.id].roles[t.id]=new oe(t)})},te.update=function(e,n){e.channels[n.id]||(e.channels[n.id]={});for(var t in n)"permission_overwrites"!==t?e.channels[n.id][t]=n[t]:n[t].forEach(function(t){var i="member"===t.type?"user":"role";e.channels[n.id].permissions[i][t.id]={allow:t.allow,deny:t.deny}});delete e.channels[n.id].is_private},se.update=function(e,n){e.members[n.user.id]||(e.members[n.user.id]={}),h(n,e.members[n.user.id],["user"])},oe.update=function(e,n){e.roles[n.role.id]||(e.roles[n.role.id]={}),h(n.role,e.roles[n.role.id])},Object.defineProperty(oe.prototype,"permission_values",{get:function(){return this},set:function(e){},enumerable:!0}),e.version=fe,e.Emitter=ce,e.Codes={},e.Codes.WebSocket={0:"Gateway Error",4000:"Unknown Error",4001:"Unknown Opcode",4002:"Decode Error",4003:"Not Authenticated",4004:"Authentication Failed",4005:"Already Authenticated",4006:"Session Not Valid",4007:"Invalid Sequence Number",4008:"Rate Limited",4009:"Session Timeout",4010:"Invalid Shard"},e.Colors={DEFAULT:0,AQUA:1752220,GREEN:3066993,BLUE:3447003,PURPLE:10181046,GOLD:15844367,ORANGE:15105570,RED:15158332,GREY:9807270,DARKER_GREY:8359053,NAVY:3426654,DARK_AQUA:1146986,DARK_GREEN:2067276,DARK_BLUE:2123412,DARK_PURPLE:7419530,DARK_GOLD:12745742,DARK_ORANGE:11027200,DARK_RED:10038562,DARK_GREY:9936031,LIGHT_GREY:12370112,DARK_NAVY:2899536},e.Permissions={GENERAL_CREATE_INSTANT_INVITE:0,GENERAL_KICK_MEMBERS:1,GENERAL_BAN_MEMBERS:2,GENERAL_ADMINISTRATOR:3,GENERAL_MANAGE_CHANNELS:4,GENERAL_MANAGE_GUILD:5,GENERAL_MANAGE_ROLES:28,GENERAL_MANAGE_NICKNAMES:27,GENERAL_CHANGE_NICKNAME:26,TEXT_READ_MESSAGES:10,TEXT_SEND_MESSAGES:11,TEXT_SEND_TTS_MESSAGE:12,TEXT_MANAGE_MESSAGES:13,TEXT_EMBED_LINKS:14,TEXT_ATTACH_FILES:15,TEXT_READ_MESSAGE_HISTORY:16,TEXT_MENTION_EVERYONE:17,TEXT_EXTERNAL_EMOJIS:18,VOICE_CONNECT:20,VOICE_SPEAK:21,VOICE_MUTE_MEMBERS:22,VOICE_DEAFEN_MEMBERS:23,VOICE_MOVE_MEMBERS:24,VOICE_USE_VAD:25},Object.keys(e.Permissions).forEach(function(n){Object.defineProperty(oe.prototype,n,{get:I(e.Permissions[n]),set:A(e.Permissions[n]),enumerable:!0})}),function(){var e="https://discordapp.com/api",n=e+"/users/@me";de={API:e,ME:n,NOTE:function(e){return n+"/notes/"+e},LOGIN:e+"/auth/login",OAUTH:e+"/oauth2/applications/@me",GATEWAY:e+"/gateway",SETTINGS:n+"/settings",SERVERS:function(n){return e+"/guilds"+(n?"/"+n:"")},SERVERS_PERSONAL:function(e){return this.ME+"/guilds"+(e?"/"+e:"")},CHANNEL:function(n){return e+"/channels/"+n},MEMBERS:function(e,n){return this.SERVERS(e)+"/members"+(n?"/"+n:"")},USER:function(n){return e+"/users/"+n},ROLES:function(e,n){return this.SERVERS(e)+"/roles"+(n?"/"+n:"")},BANS:function(e,n){return this.SERVERS(e)+"/bans"+(n?"/"+n:"")},MESSAGES:function(e,n){return this.CHANNEL(e)+"/messages"+(n?"/"+n:"")},PINNED_MESSAGES:function(e,n){return this.CHANNEL(e)+"/pins"+(n?"/"+n:"")},INVITES:function(n){return e+"/invite/"+n},BULK_DELETE:function(e){return this.CHANNEL(e)+"/messages/bulk_delete"},TYPING:function(e){return this.CHANNEL(e)+"/typing"}}}()}("undefined"==typeof exports?this.Discord={}:exports);
 
-    function eOn (e) { // this function is optional, but you will need to use d.details in your event listener
-      d.apply(this, e.detail)
-    }
-  }
-  emit (e) { // thanks izy
-    window.dispatchEvent(new CustomEvent(e, {
-      'detail': Array.prototype.slice.call(arguments, 1)
-    }));
-  }
-}
-/**
- * The main Discord client
- * @class Discord
- * @param {Object} options Options to pass to the client
- * @param {String} options.token Token to log in with
- * @param {Boolean} options.debug Enables lots of debugging console stuff
- * @prop {Map} guilds Map of guilds
- * @prop {Map} channels Map of channels
- * @prop {Map} users Map of users
- * @prop {EventEmitter} e The main EventEmitter
- */
-class Discord {
-  constructor (options) {
-    this.lastS = 0;
-    this.guilds = new Map();
-    this.users = new Map();
-    this.channels = new Map();
-    this.options = options;
-    this.debug = options.debug || false;
-    this.e = new EventEmitter();
-  }
-  /**
-   * debug logs
-   * @param t anything that needs to be logged/debugged
-   * @private
-   */
-  log (t) {
-    if (this.debug) {
-      console.log(t);
-      this.e.emit('DEBUG', t);
-    }
-  }
-  /**
-   * sends heartbeat
-   * @private
-   */
-  heartbeat () {
-    this.log('♥️ SENDING HEARTBEAT');
-    this.socket.send(JSON.stringify({
-      'op': 1,
-      'd': this.lastS
-    }));
-  }
-  /**
-   * Calls the discord api with the token provided to the client
-   * @param {Object} options
-   * @param {String} options.method The HTTP method to use
-   * @param {String} options.uri The uri to call
-   * @param {Object} options.body Optional body for the request
-   */
-  callAPI (options, callback) {
-    var base = 'https://discordapp.com/api';
-    var headers = new Headers({
-      'Authorization': this.options.token,
-      'Content-Type': 'application/json'
-    });
-    var temp = {
-      method: options.method,
-      headers: headers
-    };
-    if (options.body) temp.body = JSON.stringify(options.body);
-    fetch(base + options.uri, temp).then(function (response) {
-      return response.json();
-    }).then(function (data) {
-      callback(data);
-    });
-  }
-  /**
-   * logs in
-   */
-  login (token) {
-    if (token) this.options.token = token;
-    var self = this;
-    this.callAPI({
-      method: 'GET',
-      uri: '/gateway'
-    }, function (res) {
-      self.socket = new WebSocket(res.url + '/?v=6&encoding=json');
-      self.socket.addEventListener('message', self.onMessage.bind(self));
-      self.socket.addEventListener('disconnect', self.onDisconnect.bind(self));
-      self.socket.onopen = function (event) {
-        self.log('SOCKET OPEN');
-      };
-    })
-  }
-  /**
-   * logs out
-   */
-  logout () {
-    this.socket.close();
-  }
-  /**
-   * handles all messages from the gateway
-   * @param {Object} event
-   * @private
-   */
-  onMessage (event) {
-    var self = this;
-    var e = JSON.parse(event.data);
-    this.lastS = e.s;
-    switch (e.op) {
-      case 10:
-        if (this.beatInterval) clearInterval(this.beatInterval);
-        this.socket.send(JSON.stringify({
-          'op': 2,
-          'd': {
-            'token': this.options.token,
-            'properties': {
-              '$browser': 'funcord'
-            },
-            'large_threshold': 50
-          }
-        }));
-        this.beatInterval = setInterval(function () {
-          self.heartbeat();
-        }, e.d.heartbeat_interval);
-        break;
-      case 11:
-        this.log('♥️ GOT HEARTBEAT');
-        break;
-      case 0:
-        switch (e.t) {
-          case 'READY':
-            self.user = e.d.user;
-            if (e.d.guilds) {
-              e.d.guilds.forEach(function (guild) {
-                self.guilds.set(guild.id, guild);
-              })
-            }
-            this.e.emit('READY', e);
-            break;
-          case 'GUILD_CREATE':
-            this.log('GUILD_CREATE', e.d.id);
-            e.d.members.forEach(function (member) {
-              self.users.set(member.user.id, member.user);
-            });
-            e.d.channels.forEach(function (channel) {
-              channel.guild_id = e.d.id;
-              self.channels.set(channel.id, channel);
-            });
-            this.guilds.set(e.d.id, e.d);
-            break;
-          case 'PRESENCE_UPDATE':
-            self.users[e.d.user.id] = e.d;
-            self.guilds.forEach(function (guild) {
-              if (guild.members[e.d.user.id]) {
-                guild.members[e.d.user.id].game === e.d.game;
-              }
-            })
-            break;
-          default:
-            this.e.emit(e.t, e);
-            break;
-        }
-        break;
-    }
-  }
-  /**
-   * handles gateway diconnect
-   * @param {Object} event
-   * @private
-   */
-  onDisconnect (event) {
-    this.log('DISCONNECT!');
-  }
-  /**
-   * send a message to a channel
-   * @param {String} id the id of the channel
-   * @param {String} content the content of the messages
-   * @param {Function} callback a callback with the response
-   */
-  sendMessage (id, content, callback) {
-    this.callAPI({
-      method: 'POST',
-      uri: '/channels/' + id + '/messages',
-      body: {
-        content: content
-      }
-    }, function (res) {
-      if (callback) callback(res);
-    })
-  }
-  /**
-   * update a message content
-   * @param {String} channel the id of the channel
-   * @param {String} id the id of the emssage
-   * @param {String} content the content of the messages
-   * @param {Function} callback a callback with the response
-   */
-  editMessage (channel, id, content, callback) {
-    this.callAPI({
-      method: 'PATCH',
-      uri: '/channels/' + channel + '/messages/' + id,
-      body: {
-        content: content
-      }
-    }, function (res) {
-      if (callback) callback(res);
-    })
-  }
-  /**
-   * delete a message
-   * @param {String} channel the id of the channel
-   * @param {String} id the id of the message
-   * @param {Function} callback a callback with the response
-   */
-  deleteMessage (channel, id, callback) {
-    this.callAPI({
-      method: 'DELETE',
-      uri: '/channels/' + channel + '/messages/' + id
-    }, function (res) {
-      if (callback) callback(res);
-    });
-  }
-  /**
-   * set the status of the client
-   * @param {Int} idle the time since idle
-   * @param {Object} game the game that the client is playing
-   * @param {String} game.name the name of the game
-   * @param {Int} game.type the type of game (if not streaming set this to 0)
-   * @param {String} game.url if type is 1 set this to a twitch url
-   */
-  setStatus (idle, game) {
-    this.socket.send(JSON.stringify({
-      op: 3,
-      d: {
-        'idle_since': idle,
-        'game': game
-      }
-    }));
-  }
-  /**
-   * send typing to a channel
-   * @param {String} channel the id of the channel
-   */
-  startTyping (channel, callback) {
-    this.callAPI({
-      method: 'POST',
-      uri: '/channels/' + channel + '/typing'
-    }, function (res) {
-      if (callback) callback(res);
-    })
-  }
-  /**
-   * get logs for a channel
-   * @param {String} channel the id of the channel
-   * @param {Object} options the options to pass
-   * @param {String} options.around get messages around this message ID
-   * @param {String} options.before get messages before this message ID
-   * @param {String} options.after get messages after this message ID
-   * @param {Integer} options.limit max number of messages to return (1-100)
-   */
-  getChannelLogs (channel, options, callback) {
-    var uri = '/channels/' + channel + '/messages?';
-    if (options.around) uri += '&around=' + options.around;
-    if (options.before) uri += '&before=' + options.before;
-    if (options.after) uri += '&after=' + options.after
-    if (options.limit) uri += '&limit=' + options.limit;
-    this.callAPI({
-      method: 'GET',
-      uri: uri
-    }, function (res) {
-      if (callback) callback(res);
-    })
-  }
-}
 
 (function (ext) {
   ext.lastMessage = null;
   ext.messageAvailable = false;
 
   ext.init = function (token) {
-    ext.client = new Discord({token: token, debug: true});
-    ext.client.e.on('MESSAGE_CREATE', function (e) {
-      if (e.d.author.id === ext.client.user.id) return;
-      ext.lastMessage = e.d;
+    ext.client = new Discord.Client({token: token, debug: true});
+    ext.client.on('message', function(user, userID, channelID, message, event) {
+      if (event.d.author.id === ext.client.id) return;
+      ext.lastMessage = event.d;
       ext.messageAvailable = true;
     });
   }
 
   ext.login = function () {
-    ext.client.login();
+    ext.client.connect();
   }
 
   ext.send_message = function (id, message, callback) {
-    ext.client.sendMessage(id, message, function (res) {
+    ext.client.sendMessage({to: id, message: message}, function (err, res) {
       callback(res);
-    })
+    });
   }
 
   ext.reply_to_message = function (message, content, callback) {
-    ext.client.sendMessage(message.channel_id, content, function (res) {
+    ext.client.sendMessage({to: message.channel_id, message: content}, function (err, res) {
       callback(res);
-    })
+    });
   }
 
   ext.on_message = function () {
