@@ -39,7 +39,7 @@
   }
 
   ext.edit_message = function (message, content, callback) {
-    ext.client.editMessage({channel: message.channel_id, messageID: message.id, message: content}, function (err, res) {
+    ext.client.editMessage({channelID: message.channel_id, messageID: message.id, message: content}, function (err, res) {
       if (callback) callback(res);
     })
   }
