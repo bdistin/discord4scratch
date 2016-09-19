@@ -356,7 +356,7 @@ class Discord {
       [' ', 'login', 'login'],
       ['w', 'send message %s, %s', 'send_message', 'Channel ID', 'Message'],
       ['h', 'on message', 'on_message'],
-      ['w', 'reply to message %s $s', 'reply_to_message', 'Message Object', 'Content'],
+      ['w', 'reply to message %s %s', 'reply_to_message', 'Message Object', 'Content'],
       ['r', 'get message', 'get_message'],
       ['r', 'get message content %s', 'get_message_content', 'message object'],
       ['r', 'message starts with %s %s', 'message_starts_with', 'message', 'search'],
