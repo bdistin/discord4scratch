@@ -75,7 +75,7 @@
   var descriptor = {
     blocks: [
       // Block type, block name, function name
-      [' ', '%s', 'frame', 'function']
+      [' ', 'run %s in frame', 'frame', 'function'],
       [' ', 'create client %s', 'init', 'token'],
       [' ', 'login', 'login'],
       ['R', 'send message %s, %s', 'send_message', 'Channel ID', 'Message'],
