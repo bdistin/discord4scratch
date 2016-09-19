@@ -22,24 +22,18 @@
     ext.client.connect();
   }
 
+  ext.frame = function (i) {
+    return i;
+  }
+
   ext.send_message = function (id, message, callback) {
     ext.client.sendMessage({to: id, message: message}, function (err, res) {
-      callback(res);
+      if (callback) callback(res);
     });
   }
 
   ext.reply_to_message = function (message, content, callback) {
     ext.client.sendMessage({to: message.channel_id, message: content}, function (err, res) {
-      callback(res);
-    });
-  }
-
-  ext.edit_message = function (channelid, messageid, content, callback) {
-    ext.client.editMessage({
-      channel: channelid,
-      messageID: messageid,
-      message: content
-    }, function(err, res) {
       if (callback) callback(res);
     });
   }
@@ -52,38 +46,12 @@
     return false;
   }
 
-  ext.get_message = function (callback) {
-    var message = ext.lastMessage;
-    if (callback) callback(message);
-    return message;
-  }
-
   ext.message_available = function () {
     return ext.messageAvailable;
   }
 
-  ext.console_log = function (i) {
-    console.log(i);
-  }
-
-  ext.startsWith = function (string, search) {
-    return string.startsWith(search);
-  }
-
-  ext.get_property = function (object, property) {
-    return object[property] ? object[property] : undefined;
-  }
-
-  ext.get_message_content = function (message) {
-    return message.content;
-  }
-
-  ext.message_starts_with = function (message, search) {
-    return message.content.startsWith(search);
-  }
-
-  ext.replace = function (search, replace, string) {
-    return string.replace(search, replace);
+  ext.console = function (x, i) {
+    console[x](i);
   }
 
   ext.eval = function(input, callback) {
@@ -107,20 +75,16 @@
   var descriptor = {
     blocks: [
       // Block type, block name, function name
+      [' ', '%s', 'frame', 'function']
       [' ', 'create client %s', 'init', 'token'],
       [' ', 'login', 'login'],
       ['R', 'send message %s, %s', 'send_message', 'Channel ID', 'Message'],
-      ['w', 'edit %s %s %s', 'edit_message', 'Channel ID', 'Message ID', 'Content'],
+      ['R', 'edit %s %s %s', 'edit_message', 'Channel ID', 'Message ID', 'Content'],
       ['h', 'on message', 'on_message'],
-      ['w', 'reply to %s with %s', 'reply_to_message', 'message', 'Content'],
       ['r', 'get message', 'get_message'],
-      ['r', 'get %s\'s content', 'get_message_content', 'message object'],
-      ['b', '%s starts with %s', 'message_starts_with', 'message', 'search'],
-      ['b', 'string starts with %s %s', 'startsWith', 'string', 'search'],
       ['r', 'get property %s %s', 'get_property', 'object', 'property'],
       ['b', 'messages available', 'message_available'],
-      ['r', 'replace %s with %s in %s', 'replace', 'x', 'y', 'string'],
-      [' ', 'console log %s', 'console_log', 'input'],
+      [' ', 'console %s %s', 'console_log', 'method', 'input'],
       ['R', 'eval %s', 'eval', 'input']
     ]
   };
