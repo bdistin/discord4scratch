@@ -291,7 +291,7 @@ class Discord {
     ext.client = new Discord({token: token});
     ext.client.e.on('message', function (e) {
       console.log('GOT MESSAGE EVENT', e.d);
-      // if (e.d.author.id === ext.client.user.id) return;
+      if (e.d.author.id === ext.client.user.id) return;
       ext.messageQueue.push(e.d);
       ext.messageAvailable = true;
     })
@@ -311,13 +311,13 @@ class Discord {
 
   ext.on_message = function () {
     if (ext.messageAvailable === true) {
-      // if (ext.messageQueue.length === 0) ext.messageAvailable = false;
+      if (ext.messageQueue.length === 0) ext.messageAvailable = false;
       return true;
     }
     return false;
   }
 
-  ext.get_content = function (callback) {
+  ext.get_message = function (callback) {
     var message = ext.messageQueue[0];
     delete ext.messageQueue[0];
     if (ext.messageQueue.length === 0) ext.messageAvailable = false;
