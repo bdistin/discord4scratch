@@ -82,10 +82,10 @@
       ['w', 'reply to %s with %s', 'reply_to_message', 'message', 'Content'],
       ['r', 'get message', 'get_message'],
       ['r', 'get %s\'s content', 'get_message_content', 'message object'],
-      ['r', '%s starts with %s', 'message_starts_with', 'message', 'search'],
-      ['r', 'string starts with %s %s', 'startsWith', 'string', 'search'],
+      ['b', '%s starts with %s', 'message_starts_with', 'message', 'search'],
+      ['b', 'string starts with %s %s', 'startsWith', 'string', 'search'],
       ['r', 'get property %s %s', 'get_property', 'object', 'property'],
-      ['r', 'messages available', 'message_available'],
+      ['b', 'messages available', 'message_available'],
       [' ', 'console log %s', 'console_log', 'input']
     ]
   };
