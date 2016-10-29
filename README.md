@@ -16,4 +16,4 @@
 
 
 ### Import link
-import https://guscaplan.me/discord4scratch/index.js into scratchx
+import https://gus.host/discord4scratch/index.js into scratchx
